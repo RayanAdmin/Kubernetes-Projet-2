@@ -109,7 +109,6 @@ spec:
       claimName: my-nfs-pvc
 ```
 
-Note : Le fichier `mysql-secret` doit être créé pour stocker le mot de passe MySQL.
 
 2. Créer un pod PHP en utilisant le fichier suivant :
 
@@ -128,7 +127,7 @@ spec:
       - containerPort: 80
     volumeMounts:
       - mountPath: /var/www/html
-        name
+        name: php-files
 ```
 
 ## Configuration de Kubernetes
