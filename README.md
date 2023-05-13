@@ -1,7 +1,5 @@
 # Kubernetes-Projet-2
 
-# Kubernetes-Projet-2
-
 # Installation et Configuration d'un serveur NFS
 
 ## Introduction
