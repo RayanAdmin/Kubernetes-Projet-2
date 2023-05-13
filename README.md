@@ -130,33 +130,6 @@ spec:
         name: php-files
 ```
 
-## Configuration de Kubernetes
-
-1. Assurez-vous que Kubernetes est correctement installé sur votre serveur.
-
-2. Créez un répertoire partagé que vous souhaitez utiliser pour stocker les données de la base de données MySQL.
-
-3. Installez le serveur NFS sur votre serveur. Vous pouvez le faire en utilisant la commande suivante : `sudo apt-get install nfs-kernel-server`
-
-4. Configurez le partage NFS en ajoutant une entrée dans le fichier `/etc/exports`. Par exemple, si votre répertoire partagé est `/home/user/nfs`, ajoutez la ligne suivante au fichier `/etc/exports` : `/home/user/nfs *(rw,sync,no_subtree_check,no_root_squash)`
-
-5. Redémarrez le serveur NFS en utilisant la commande suivante : `sudo systemctl restart nfs-kernel-server`
-
-6. Créez un PersistentVolume pour votre répertoire partagé en utilisant le fichier `pv.yaml` fourni dans ce dépôt. Assurez-vous de modifier le champ `server` pour qu'il contienne l'adresse IP de votre serveur NFS.
-
-7. Créez un PersistentVolumeClaim pour votre PersistentVolume en utilisant le fichier `pvc.yaml` fourni dans ce dépôt.
-
-8. Créez un secret Kubernetes pour stocker le mot de passe de la base de données MySQL en utilisant la commande suivante : `kubectl create secret generic mysql-pass --from-literal=password=YOUR_PASSWORD_HERE`
-
-9. Créez un déploiement MySQL en utilisant le fichier `mysql.yaml` fourni dans ce dépôt. Assurez-vous de modifier le champ `password` pour qu'il corresponde au mot de passe stocké dans le secret créé précédemment.
-
-10. Créez un déploiement PHP en utilisant le fichier `php.yaml` fourni dans ce dépôt.
-
-11. Créez un service Kubernetes pour le déploiement MySQL en utilisant le fichier `mysql-service.yaml` fourni dans ce dépôt.
-
-12. Créez un service Kubernetes pour le déploiement PHP en utilisant le fichier `php-service.yaml` fourni dans ce dépôt.
-
-13. Accédez à l'application en utilisant l'adresse IP du service PHP.
 
 ## Objectif
 
