@@ -1,7 +1,5 @@
 # Kubernetes-Projet-2
 
-# Installation et Configuration d'un serveur NFS
-
 ## Introduction
 
 Le but de ce projet est de déployer une application PHP qui affiche le contenu d'une base de données MySQL sur Kubernetes en utilisant un serveur NFS pour stocker les données de la base de données et les rendrent ainsi persistantes.
