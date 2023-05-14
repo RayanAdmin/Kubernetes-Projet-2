@@ -6,6 +6,19 @@ Le but de ce projet est de déployer une application PHP qui affiche le contenu 
 
 À la différence du projet numéro 1, un répertoire est partagé entre le pod MySQL et le répertoire sur le serveur NFS. Ainsi, si le pod MySQL est supprimé et que le pod est redeployé, la base de données n'est pas supprimée car les données sont stockées sur le serveur NFS. De plus, fait d'utiliser un serveur NFS et y monter le répertoire partagé permet d'avoir accès au contenu de ce répertoire depuis n'importe quel machine sur le reseau.
 
+# Fonctionnement
+
+Une fois que vous avez déployé les ressources Kubernetes, deux pods sont créés : un pod PHP et un pod MySQL. Le fichier "kustomization.yaml" est utilisé pour partager le mot de passe de la base de données entre les deux pods.
+
+La page web en PHP affiche le contenu de la base de données MySQL. Sur cette page web, il y a un champ texte dans lequel vous pouvez rentrer un nom et le valider. Une fois que vous avez validé le nom, celui-ci est ajouté à la base de données et s'affiche sur la page PHP.
+
+De plus, deux services sont créés pour faciliter l'accès à l'application :
+
+- Le service PHP permet d'accéder à l'application PHP.
+- Le service MySQL permet d'accéder à la base de données MySQL.
+
+De plus, un répertoire est partagé entre le pod MySQL et le répertoire sur le serveur NFS. Ainsi, si le pod MySQL est supprimé et que le pod est redeployé, la base de données n'est pas supprimée car les données sont stockées sur le serveur NFS. De plus, fait d'utiliser un serveur NFS et y monter le répertoire partagé permet d'avoir accès au contenu de ce répertoire depuis n'importe quel machine sur le reseau.
+
 # Prérequis
 
 - Kubernetes doit être installé sur votre machine ou sur un cluster Kubernetes accessible.
@@ -241,19 +254,6 @@ kubectl apply -f  02-servicedb.yaml
 kubectl apply -f  02-servicephp.yaml
 
 ``` 
-
-# Fonctionnement
-
-Une fois que vous avez déployé les ressources Kubernetes, deux pods sont créés : un pod PHP et un pod MySQL. Le fichier "kustomization.yaml" est utilisé pour partager le mot de passe de la base de données entre les deux pods.
-
-La page web en PHP affiche le contenu de la base de données MySQL. Sur cette page web, il y a un champ texte dans lequel vous pouvez rentrer un nom et le valider. Une fois que vous avez validé le nom, celui-ci est ajouté à la base de données et s'affiche sur la page PHP.
-
-De plus, deux services sont créés pour faciliter l'accès à l'application :
-
-- Le service PHP permet d'accéder à l'application PHP.
-- Le service MySQL permet d'accéder à la base de données MySQL.
-
-De plus, un répertoire est partagé entre le pod MySQL et le répertoire sur le serveur NFS. Ainsi, si le pod MySQL est supprimé et que le pod est redeployé, la base de données n'est pas supprimée car les données sont stockées sur le serveur NFS. De plus, fait d'utiliser un serveur NFS et y monter le répertoire partagé permet d'avoir accès au contenu de ce répertoire depuis n'importe quel machine sur le reseau.
 
 # Conclusion
 
