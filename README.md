@@ -50,7 +50,13 @@ sudo chmod 777 ~/projet_02/nfs
 
 Note : Remplacez `<user>` par votre nom d'utilisateur.
 
-5. Redémarrer le serveur NFS en utilisant la commande suivante :
+5. Appliquer le fichier en utilisant la commande suivante :
+
+```
+sudo exportfs -rav
+```
+
+6. Redémarrer le serveur NFS en utilisant la commande suivante :
 
 ```
 sudo systemctl restart nfs-kernel-server
