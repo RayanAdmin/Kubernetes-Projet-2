@@ -6,6 +6,13 @@ Le but de ce projet est de déployer une application PHP qui affiche le contenu 
 
 À la différence du projet numéro 1, un répertoire est partagé entre le pod MySQL et le répertoire sur le serveur NFS. Ainsi, si le pod MySQL est supprimé et que le pod est redeployé, la base de données n'est pas supprimée car les données sont stockées sur le serveur NFS. De plus, fait d'utiliser un serveur NFS et y monter le répertoire partagé permet d'avoir accès au contenu de ce répertoire depuis n'importe quel machine sur le reseau.
 
+# Prérequis
+
+- Kubernetes doit être installé sur votre machine ou sur un cluster Kubernetes accessible.
+- Un accès à la ligne de commande Kubernetes.
+
+# Guide d'installation
+
 ## Installation et Configuration du serveur NFS
 
 1. Installer le serveur NFS sur la machine où Kubernetes est installé en utilisant la commande suivante :
