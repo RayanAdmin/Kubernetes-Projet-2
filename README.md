@@ -252,7 +252,6 @@ spec:
 kubectl apply -k .
 kubectl apply -f  02-servicedb.yaml
 kubectl apply -f  02-servicephp.yaml
-
 ``` 
 
 # Conclusion
