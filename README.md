@@ -13,6 +13,25 @@ Le but de ce projet est de déployer une application PHP qui affiche le contenu 
 
 # Guide d'installation
 
+# Guide d'installation
+
+1. Clonez ce dépôt sur votre machine locale :
+```
+git clone https://github.com/votre-nom/kubernetes-php-mysql.git
+```
+
+2. Accédez au répertoire du projet :
+```
+cd kubernetes-php-mysql
+```
+
+3. Modifiez le fichier "kustomization.yaml" pour définir le mot de passe de la base de données MySQL :
+```
+  literals:
+  - password=redhat
+```
+Notez que le mot de passe par défaut est "redhat".
+
 ## Installation et Configuration du serveur NFS
 
 1. Installer le serveur NFS sur la machine où Kubernetes est installé en utilisant la commande suivante :
