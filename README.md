@@ -6,6 +6,8 @@
 
 Le but de ce projet est de déployer une application PHP qui affiche le contenu d'une base de données MySQL sur Kubernetes en utilisant un serveur NFS pour stocker les données de la base de données et les rendrent ainsi persistantes.
 
+La différence avec le projet numéro 1 est la persistances des données sur le serveur MYSQL, ce qui permet que le contenue de la base de donnée ne soit pas perdu si le pod tombe ou se fait supprimer. De plus, le serveur NFS permet d'avoir accès au contenu de ce répertoire depuis n'importe quel machine sur le reseau.
+
 ## Objectif
 
 L'objectif de ce projet est de créer une page web en PHP qui affiche le contenu d'une base de données MySQL. Pour cela, j'ai utilisé Kubernetes pour déployer un pod PHP et un pod MySQL, ainsi que deux services associés pour faciliter l'accès à l'application. Le fichier `kustomization.yaml` est utilisé pour partager le mot de passe de la base de données entre les deux pods.
