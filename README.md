@@ -66,13 +66,14 @@ metadata:
 spec:
   capacity:
     storage: 1Gi
+  storageClassName: my-nfs-storage
   accessModes:
     - ReadWriteMany
   nfs:
-    path: ~/projet_02/nfs
+    path: /home/rayan/projet_02/nfs
     server: <IP-address-of-Kubernetes-master-node>
 ```
-
+Note : Remplacez `/home/rayan/projet_02/nfs` par le repertoire qui va être monté sur le pod.
 Note : Remplacez `<IP-address-of-Kubernetes-master-node>` par l'adresse IP du noeud maître Kubernetes.
 
 2. Créer un Persistent Volume Claim (PVC) pour le serveur NFS en utilisant le fichier suivant :
@@ -85,12 +86,11 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  storageClassName: my-nfs-storage
   resources:
     requests:
       storage: 1Gi
-  selector:
-    matchLabels:
-      type: nfs
+  volumeName: my-nfs-pv
 ```
 
 ## Configuration des Pods et Services
@@ -98,48 +98,81 @@ spec:
 1. Créer un pod MySQL en utilisant le fichier suivant :
 
 ```
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: mysql-pod
-  labels:
-    type: nfs
+  name: mydb-deployment
 spec:
-  containers:
-  - name: mysql-container
-    image: mysql
-    env:
-      - name: MYSQL_ROOT_PASSWORD
-        valueFrom:
-          secretKeyRef:
-            name: mysql-secret
-            key: password
-    volumeMounts:
-      - mountPath: /var/lib/mysql
-        name: mysql-persistent-storage
-  volumes:
-  - name: mysql-persistent-storage
-    persistentVolumeClaim:
-      claimName: my-nfs-pvc
+  replicas: 1
+  selector:
+    matchLabels:
+      env: production-db
+  template:
+    metadata:
+      name: mydb
+      labels:
+        env: production-db
+    spec:
+      securityContext:
+        runAsUser: 1001
+        fsGroup: 1002
+      volumes:
+        - name: my-nfs-storage
+          persistentVolumeClaim:
+            claimName: my-nfs-pvc
+      containers:
+      - name: database
+        image: mysql:5.7
+        ports:
+        - containerPort: 3306
+        volumeMounts:
+          - name: my-nfs-storage
+            mountPath: /var/lib/mysql
+        env:
+          - name: MYSQL_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysql-pass
+                key: password
+          - name: MYSQL_DATABASE
+            value: db
 ```
 
 
 2. Créer un pod PHP en utilisant le fichier suivant :
 
 ```
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: php-pod
-  labels:
-    type: nfs
+  name: myphp-deployment
 spec:
-  containers:
-  - name: php-container
-    image: php:apache
-    ports:
-      - containerPort: 80
-    volumeMounts:
-      - mountPath: /var/www/html
-        name: php-files
+  replicas: 3
+  selector:
+    matchLabels:
+      env: production-frontend
+  template:
+    metadata:
+      name: myfrontend-pod
+      labels:
+        env: production-frontend
+    spec:
+      volumes:
+        - name: php-files
+          hostPath:
+            path: /home/rayan/projet_01/site
+      containers:
+        - name: frontend
+          image: ragh19/phpproject:web_v1
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-pass
+                  key: password
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: php-files
 ```
