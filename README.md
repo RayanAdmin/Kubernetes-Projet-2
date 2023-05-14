@@ -250,6 +250,8 @@ spec:
 
 ```
 kubectl apply -k .
+kubectl apply -f  nfs-pv.yaml
+kubectl apply -f  nfs-pvc.yaml
 kubectl apply -f  02-servicedb.yaml
 kubectl apply -f  02-servicephp.yaml
 ``` 
