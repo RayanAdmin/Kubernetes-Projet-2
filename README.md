@@ -246,7 +246,7 @@ spec:
 
 # Déployment des ressources Kubernetes
 
-1. Créer le fichier de Kustomization en utilisant le fichier suivant :
+1. Déployer le fichier de Kustomization ainsi que les fichiers de service en utilisant les fichier suivant :
 
 ```
 kubectl apply -k .
