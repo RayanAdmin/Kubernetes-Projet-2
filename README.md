@@ -13,8 +13,6 @@ Le but de ce projet est de déployer une application PHP qui affiche le contenu 
 
 # Guide d'installation
 
-# Guide d'installation
-
 1. Clonez ce dépôt sur votre machine locale :
 ```
 git clone https://github.com/votre-nom/kubernetes-php-mysql.git
