@@ -21,22 +21,26 @@ sudo apt-get install nfs-kernel-server
 2. Créer un répertoire partagé en exécutant la commande suivante :
 
 ```
-sudo mkdir ~/projet_02/nfs
+sudo mkdir /home/rayan/projet_02/nfs
 ```
+
+Note : Remplacez `/home/rayan/projet_02/nfs` par le repertoire qui va être monté sur le pod.
 
 3. Modifier les permissions du répertoire partagé en exécutant la commande suivante :
 
 ```
-sudo chmod 777 ~/projet_02/nfs
+sudo chmod 777 /home/rayan/projet_02/nfs
 ```
+
+Note : Remplacez `/home/rayan/projet_02/nfs` par le repertoire qui va être monté sur le pod.
 
 4. Ajouter les paramètres de partage pour le répertoire partagé en modifiant le fichier `/etc/exports` avec les informations suivantes :
 
 ```
-/home/<user>/projet_02/nfs *(rw,sync,no_subtree_check)
+/home/rayan/projet_02/nfs *(rw,sync,no_subtree_check)
 ```
 
-Note : Remplacez `<user>` par votre nom d'utilisateur.
+Note : Remplacez `/home/rayan/projet_02/nfs` par le repertoire qui va être monté sur le pod.
 
 5. Appliquer le fichier en utilisant la commande suivante :
 
