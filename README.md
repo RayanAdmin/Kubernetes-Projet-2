@@ -176,3 +176,37 @@ spec:
             - mountPath: /var/www/html
               name: php-files
 ```
+
+3. Créer le service Mysql en utilisant le fichier suivant :
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: mydb-service
+spec:
+  type: ClusterIP
+  ports:
+    - targetPort: 3306
+      port: 3306
+#     nodePort: 30008 
+  selector:
+    env: production-db
+``` 
+
+4. Créer le service PHP en utilisant le fichier suivant :
+
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: myphp-service
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 30009
+  selector:
+    env: production-frontend
+``` 
