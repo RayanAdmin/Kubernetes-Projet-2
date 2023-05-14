@@ -210,3 +210,17 @@ spec:
   selector:
     env: production-frontend
 ``` 
+
+## Configuration du fichier de Kustomization
+
+1. Créer le fichier de Kustomization en utilisant le fichier suivant :
+
+```
+secretGenerator:
+- name: mysql-pass
+  literals:
+  - password=redhat
+resources:
+  - 02-deployment-db.yaml
+  - 02-deployment-php.yaml
+``` 
