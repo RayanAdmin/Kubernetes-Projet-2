@@ -230,8 +230,8 @@ La page web en PHP affiche le contenu de la base de données MySQL. Sur cette pa
 
 De plus, deux services sont créés pour faciliter l'accès à l'application :
 
-Le service PHP permet d'accéder à l'application PHP.
-Le service MySQL permet d'accéder à la base de données MySQL.
+- Le service PHP permet d'accéder à l'application PHP.
+- Le service MySQL permet d'accéder à la base de données MySQL.
 
 De plus, un répertoire est partagé entre le pod MySQL et le répertoire sur le serveur NFS. Ainsi, si le pod MySQL est supprimé et que le pod est redeployé, la base de données n'est pas supprimée car les données sont stockées sur le serveur NFS. De plus, fait d'utiliser un serveur NFS et y monter le répertoire partagé permet d'avoir accès au contenu de ce répertoire depuis n'importe quel machine sur le reseau.
 
