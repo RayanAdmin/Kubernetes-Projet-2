@@ -211,16 +211,30 @@ spec:
     env: production-frontend
 ``` 
 
-## Configuration du fichier de Kustomization
+# Déployment des ressources Kubernetes
 
 1. Créer le fichier de Kustomization en utilisant le fichier suivant :
 
 ```
-secretGenerator:
-- name: mysql-pass
-  literals:
-  - password=redhat
-resources:
-  - 02-deployment-db.yaml
-  - 02-deployment-php.yaml
+kubectl apply -k .
+kubectl apply -f  02-servicedb.yaml
+kubectl apply -f  02-servicephp.yaml
+
 ``` 
+
+# Fonctionnement
+
+Une fois que vous avez déployé les ressources Kubernetes, deux pods sont créés : un pod PHP et un pod MySQL. Le fichier "kustomization.yaml" est utilisé pour partager le mot de passe de la base de données entre les deux pods.
+
+La page web en PHP affiche le contenu de la base de données MySQL. Sur cette page web, il y a un champ texte dans lequel vous pouvez rentrer un nom et le valider. Une fois que vous avez validé le nom, celui-ci est ajouté à la base de données et s'affiche sur la page PHP.
+
+De plus, deux services sont créés pour faciliter l'accès à l'application :
+
+Le service PHP permet d'accéder à l'application PHP.
+Le service MySQL permet d'accéder à la base de données MySQL.
+
+De plus, un répertoire est partagé entre le pod MySQL et le répertoire sur le serveur NFS. Ainsi, si le pod MySQL est supprimé et que le pod est redeployé, la base de données n'est pas supprimée car les données sont stockées sur le serveur NFS. De plus, fait d'utiliser un serveur NFS et y monter le répertoire partagé permet d'avoir accès au contenu de ce répertoire depuis n'importe quel machine sur le reseau.
+
+# Conclusion
+
+Félicitations ! Vous venez de déployer votre première application Kubernetes qui affiche le contenu d'une base de données persistantes MySQL sur une page web en PHP. J'espère que ce projet vous a permis de mieux comprendre le fonctionnement de Kubernetes et son utilisation pour déployer des applications.
